@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/types/testing';
 import { CartComponent } from './cart.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BookService } from 'src/app/services/book.service';
