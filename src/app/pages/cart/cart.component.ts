@@ -30,13 +30,12 @@ export class CartComponent implements OnInit {
     return totalPrice;
   }
 
-  public onInputNumberChange(action: string, book: Book): void {
-    const amount = action === 'plus' ? book.amount! + 1 : book.amount! - 1;
-    book.amount = Number(amount);
-    this.listCartBook = this._bookService.updateAmountBook(book);
-    this.totalPrice = this.getTotalPrice(this.listCartBook);
+public onInputNumberChange(action: string, book: Book): void {
+   const amount = action === 'plus' ? book.amount! + 1 : book.amount! - 1;
+   book.amount = Number(amount);
+  this.listCartBook = this._bookService.updateAmountBook(book);
+  //this.totalPrice = this.getTotalPrice(this.listCartBook);
   }
-
   public onClearBooks(): void {
     if (this.listCartBook && this.listCartBook.length > 0) {
       this._clearListCartBook();

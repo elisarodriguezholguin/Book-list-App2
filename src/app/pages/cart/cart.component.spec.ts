@@ -8,69 +8,123 @@ import { Book } from 'src/app/models/book.model';
 
 
 const listBook: Book[] = [
-{
-  name:'',
-  author:'',
-  isbn:'',
-  price:15,
-  amount:2
-},
-{
-  name:'',
-  author:'',
-  isbn:'',
-  price:20,
-  amount:1
-},
-{
-  name:'',
-  author:'',
-  isbn:'',
-  price:8,
-  amount:1
-}
+  {
+    name: '',
+    author: '',
+    isbn: '',
+    price: 15,
+    amount: 2
+  },
+  {
+    name: '',
+    author: '',
+    isbn: '',
+    price: 20,
+    amount: 1
+  },
+  {
+    name: '',
+    author: '',
+    isbn: '',
+    price: 8,
+    amount: 1
+  }
 
 ]
 describe('CartComponent', () => {
   let component: CartComponent;
   let fixture: ComponentFixture<CartComponent>;
-////holaaa
-  beforeEach( () => {
-     TestBed.configureTestingModule({
-     imports:  [
-      HttpClientTestingModule
-     ],
-     declarations:[
-         CartComponent
-     ],
-     providers:[
+  let service: BookService;
+  ////holaaa;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule
+      ],
+      declarations: [
+        CartComponent
+      ],
+      providers: [
         BookService
-     ],
-     schemas:[ CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 
-     });
-      });
-      beforeEach(()=>{
-       fixture= TestBed.createComponent(CartComponent)
-       component= fixture.componentInstance;
-       fixture.detectChanges();
-      });
-      it('should create',()=>{
-        expect(component).toBeTruthy();
-      });
-      
-      // public getTotalPrice(listCartBook: Book[]): number {
-      //    let totalPrice = 0;
-       //   listCartBook.forEach((book: Book) => {
-       //     totalPrice += book.amount! * book.price!;
-       //   });
-       //   return totalPrice;
-       // }
-      
-         it ('getTotalPrice returns an amount' ,()=>{
-            const totalPrice =component.getTotalPrice(listBook);
-            expect(totalPrice).toBeGreaterThan(0);
-            expect(totalPrice).toBeNull();
-            
- } )
+    });
+  });
+  beforeEach(() => {
+    service = fixture.debugElement.injector.get(BookService)
+    fixture = TestBed.createComponent(CartComponent)
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  // public getTotalPrice(listCartBook: Book[]): number {
+  //    let totalPrice = 0;
+  //   listCartBook.forEach((book: Book) => {
+  //     totalPrice += book.amount! * book.price!;
+  //   });
+  //   return totalPrice;
+  // }
+
+  it('getTotalPrice returns an amount', () => {
+    const totalPrice = component.getTotalPrice(listBook);
+    expect(totalPrice).toBeGreaterThan(0);
+    expect(totalPrice).toBeNull();
+
+  });
+  //public onInputNumberChange(action: string, book: Book): void {
+  //const amount = action === 'plus' ? book.amount! + 1 : book.amount! - 1;
+  //book.amount = Number(amount);
+  //this.listCartBook = this._bookService.updateAmountBook(book);
+  //this.totalPrice = this.getTotalPrice(this.listCartBook);
+
+
+  it('onInputNumberChange decrements correctly', () => {
+    const action = 'plus';
+    const book = {
+      name: '',
+      author: '',
+      isbn: '',
+      price: 15,
+      amount: 2
+    }
+    const spy1 = spyOn(service, 'updateAmountBook').and.callFake(() => []);
+    const spy2 = spyOn(component, 'getTotalPrice').and.callFake(() => 0);
+
+
+    expect(book.amount).toBe(2);
+    component.onInputNumberChange(action, book)
+
+
+    expect(spy1).toHaveBeenCalled();
+    expect(spy2).toHaveBeenCalled();
 });
+
+    it('onInputNumberChange decrements correctly', () => {
+      const action = 'minus';
+      const book = {
+        name: '',
+        author: '',
+        isbn: '',
+        price: 15,
+        amount: 3
+      }
+
+
+      const spy1 = spyOn(service, 'updateAmountBook').and.callFake(() => []);
+      const spy2 = spyOn(component, 'getTotalPrice').and.callFake(() => 0);
+
+
+      component.onInputNumberChange(action, book)
+      expect(book.amount).toBeTrue();
+
+
+      expect(spy1).toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
+
+
+    });
+  });
