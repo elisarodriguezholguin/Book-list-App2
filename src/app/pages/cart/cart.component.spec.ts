@@ -142,7 +142,8 @@ describe('CartComponent', () => {
 
   //}
   it('onclearBook works correctly', () => {
-    const spy1= spyOn((component as any),'_clearListCartBook');
+    const spy1= spyOn((component as any),'_clearListCartBook').and.callThrough();
+    const spy2 =spyOn(service,'removeBooksFromCart').and.callFake(()=>null);
     component.listCartBook = listBook;
     console.log(component.listCartBook.length);
     component.onClearBooks();
@@ -151,4 +152,10 @@ describe('CartComponent', () => {
     expect(spy1).toHaveBeenCalled();
 
   });
+  it('_clearListCartBook works correctly',()=> {
+    const spy1 = spyOn(service,'removeBooksFromCart').and.callFake(()=>null)
+  
+    component ['_clearListCartBook']();
+    expect(spy1).toHaveBeenCalled()
+  })
 });
