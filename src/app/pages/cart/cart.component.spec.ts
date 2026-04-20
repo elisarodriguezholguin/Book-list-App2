@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/types/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CartComponent } from './cart.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BookService } from 'src/app/services/book.service';
@@ -49,13 +49,20 @@ describe('CartComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 
-    });
+    }).compileComponents();
   });
+
+  //ngOnInit():void¨{
+  //...this.listCartBook = this._bookService.getBooksFromCart();
+  //...this.totalPrice = this.getTotalPrice(this.listCartBook);
+  //...}
   beforeEach(() => {
-    service = fixture.debugElement.injector.get(BookService)
+    
     fixture = TestBed.createComponent(CartComponent)
     component = fixture.componentInstance;
     fixture.detectChanges();
+    service = fixture.debugElement.injector.get(BookService)
+    spyOn(service,'getBooksFromCart').and.callFake(() =>listBook)
   });
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -82,7 +89,7 @@ describe('CartComponent', () => {
   //this.totalPrice = this.getTotalPrice(this.listCartBook);
 
 
-  it('onInputNumberChange decrements correctly', () => {
+  it('onInputNumberChange increments correctly', () => {
     const action = 'plus';
     const book = {
       name: '',
