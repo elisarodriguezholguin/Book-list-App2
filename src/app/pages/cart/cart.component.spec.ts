@@ -101,30 +101,54 @@ describe('CartComponent', () => {
 
     expect(spy1).toHaveBeenCalled();
     expect(spy2).toHaveBeenCalled();
-});
-
-    it('onInputNumberChange decrements correctly', () => {
-      const action = 'minus';
-      const book = {
-        name: '',
-        author: '',
-        isbn: '',
-        price: 15,
-        amount: 3
-      }
-
-
-      const spy1 = spyOn(service, 'updateAmountBook').and.callFake(() => []);
-      const spy2 = spyOn(component, 'getTotalPrice').and.callFake(() => 0);
-
-
-      component.onInputNumberChange(action, book)
-      expect(book.amount).toBeTrue();
-
-
-      expect(spy1).toHaveBeenCalled();
-      expect(spy2).toHaveBeenCalled();
-
-
-    });
   });
+
+  it('onInputNumberChange decrements correctly', () => {
+    const action = 'minus';
+    const book = {
+      name: '',
+      author: '',
+      isbn: '',
+      price: 15,
+      amount: 3
+    }
+
+
+    const spy1 = spyOn(service, 'updateAmountBook').and.callFake(() => []);
+    const spy2 = spyOn(component, 'getTotalPrice').and.callFake(() => 0);
+
+
+    component.onInputNumberChange(action, book)
+    expect(book.amount).toBeTrue();
+
+
+    expect(spy1).toHaveBeenCalled();
+    expect(spy2).toHaveBeenCalled();
+
+
+  });
+  //public onClearBooks(): void {
+  // if (this.listCartBook && this.listCartBook.length > 0) {
+  //   this._clearListCartBook();
+  // } else {
+  //    console.log("No books available");
+  // }
+  // }
+
+  //private _clearListCartBook() {
+  // this.listCartBook = [];
+  //  this._bookService.removeBooksFromCart();
+  // }
+
+  //}
+  it('onclearBook works correctly', () => {
+    const spy1= spyOn((component as any),'_clearListCartBook');
+    component.listCartBook = listBook;
+    console.log(component.listCartBook.length);
+    component.onClearBooks();
+    console.log('after' + component.listCartBook.length);
+    expect(component.listCartBook.length).toBe(0);
+    expect(spy1).toHaveBeenCalled();
+
+  });
+});
