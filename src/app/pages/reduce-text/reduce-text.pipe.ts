@@ -1,12 +1,19 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {HttpTestin  } from "";
 
-@Pipe({
-  name: 'reduceText'
-})
-export class ReduceTextPipe implements PipeTransform {
 
-  transform(value: string, ...args: number[]): string {
-    return value.substring(0, args[0]);
-  }
+describe('ReduceTextPipe', () => {
+  let pipe: ReduceTextPipe;
+  beforeEach(() => {
+    pipe = new ReduceTextPipe();
+ });
 
-}
+    it ('should create ', () => {
+      expect(pipe).toBeTruthy();
+    });
+
+    it ('true transform correctly',() => {
+      const text = 'Hello this is a test to check the pipe';
+      const newText = pipe.transform(text,5);
+      expect (newText.length).toBe (5)  
+      });
+  });
