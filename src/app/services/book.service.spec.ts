@@ -65,7 +65,7 @@ it ('getBook return a list of book and does a get method',()=> {
     expect(resp).toEqual(listBook)
     })
     const req = httpMock.expectOne(environment.API_REST_URL + `/book`)
-    expect(req.request.method).toBe('POST');
+    expect(req.request.method).toBe('GET');
     req.flush(listBook);
 });
 });

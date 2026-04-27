@@ -1,4 +1,4 @@
-import {HttpTestin  } from "";
+import {ReduceTextPipe  } from "./reduce-text.pipe";
 
 
 describe('ReduceTextPipe', () => {
