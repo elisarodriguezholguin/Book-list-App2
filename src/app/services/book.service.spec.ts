@@ -34,6 +34,7 @@ const listBook: Book[] = [
 describe('BookService', () => {
     let service: BookService;
     let httpMock: HttpTestingController
+    let storage: { [key: string]: string } = {};
     beforeAll(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule
@@ -49,6 +50,10 @@ describe('BookService', () => {
     beforeEach(() => {
         service = TestBed.inject(BookService);
         httpMock = TestBed.inject(HttpTestingController);
+
+        spyOn(localStorage,'getItem').and.callFake ((key:string) => {
+              return storage[key]? storage[key]:null;
+        });
     });
      afterAll(() =>  {
       httpMock.verify()
@@ -56,10 +61,7 @@ describe('BookService', () => {
 it('should be created',()=> {
     expect(service).toBeTruthy
 })
-//public getBooks(): Observable<Book[]> {
- //   const url: string = environment.API_REST_URL + `/book`;
-  //  return this._httpClient.get<Book[]>(url);
- // }
+
 it ('getBook return a list of book and does a get method',()=> {
     service.getBooks().subscribe((resp:Book[])=> {
     expect(resp).toEqual(listBook)
@@ -68,4 +70,13 @@ it ('getBook return a list of book and does a get method',()=> {
     expect(req.request.method).toBe('GET');
     req.flush(listBook);
 });
+
+  
+ it('getBooksFronCart return empty array when  localStorage is empty',()=>{
+    const listBook = service.getBooksFromCart();
+    expect(listBook.length).toBe(0);
+ })
+
+
 });
+
