@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CartComponent } from './cart.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BookService } from 'src/app/services/book.service';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, inject, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Book } from 'src/app/models/book.model';
 ///ELISAAAAAAAA 
 
@@ -42,10 +42,11 @@ describe('CartComponent', () => {
         HttpClientTestingModule
       ],
       declarations: [
-        CartComponent
+        //CartComponent
       ],
       providers: [
         BookService
+        CartComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 
@@ -64,9 +65,12 @@ describe('CartComponent', () => {
     service = fixture.debugElement.injector.get(BookService)
     spyOn(service,'getBooksFromCart').and.callFake(() =>listBook)
   });
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  //fit('should create', () => {
+   // expect(component).toBeTruthy();
+  //});
+  fit('should create',inject([CartComponent], (testComponent:CartComponent) => {
+    expect(testComponent).toBeTruthy();
+  } ));
 
   // public getTotalPrice(listCartBook: Book[]): number {
   //    let totalPrice = 0;

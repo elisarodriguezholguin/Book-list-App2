@@ -9,6 +9,9 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class BookService {
+  addMockToCart(book: Book) {
+      throw new Error("Method not implemented.");
+  }
 
   constructor(
     @Inject(HttpClient) private readonly httpClient: HttpClient
@@ -27,36 +30,6 @@ export class BookService {
     localStorage.removeItem('listCartBook');
   }
 
-  public addBookToCart(book: Book): void {
-
-    let listBook: Book[] = JSON.parse(
-      localStorage.getItem('listCartBook') || '[]'
-    );
-
-    if (listBook.length === 0) {
-      book.amount = 1;
-      listBook = [book];
-
-    } else {
-
-      const index = listBook.findIndex(
-        (item: Book) => item.id === book.id
-      );
-
-      if (index !== -1) {
-        listBook[index]!.amount =
-          (listBook[index]!.amount || 0) + 1;
-
-      } else {
-        book.amount = 1;
-        listBook.push(book);
-      }
-    }
-
-    localStorage.setItem(
-      'listCartBook',
-      JSON.stringify(listBook)
-    );
-  }
+ 
 
 }
