@@ -45,7 +45,7 @@ describe('CartComponent', () => {
         //CartComponent
       ],
       providers: [
-        BookService
+        BookService,
         CartComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
@@ -68,7 +68,7 @@ describe('CartComponent', () => {
   //fit('should create', () => {
    // expect(component).toBeTruthy();
   //});
-  fit('should create',inject([CartComponent], (testComponent:CartComponent) => {
+  it('should create',inject([CartComponent], (testComponent:CartComponent) => {
     expect(testComponent).toBeTruthy();
   } ));
 
